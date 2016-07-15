@@ -24,7 +24,7 @@ namespace HairSalon
     public void Test_Equal_ForSameClientInfo()
     {
       Client firstClient = new Client("Joe", 1);
-      Client secondClient = new Client("Joe", 2);
+      Client secondClient = new Client("Joe", 1);
       Assert.Equal(firstClient, secondClient);
     }
   }
