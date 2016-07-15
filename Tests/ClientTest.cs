@@ -94,6 +94,33 @@ namespace HairSalon
       Assert.Equal(testClients, resultClients);
     }
 
+    [Fact]
+    public void Test_GetAppointments_GetsAllAppointmentsAssociatedWithClient()
+    {
+      Appointment.DeleteAll();
+      List<Appointment> testAppointments = new List<Appointment>{};
+
+      Client testClient = new Client("Polly", 3);
+      testClient.Save();
+      int testClientId = testClient.GetId();
+      int testClientStylistId = testClient.GetStylistId();
+
+
+      DateTime testDate1 = new DateTime(2017, 5, 21, 12, 0, 0);
+      Appointment testAppointment1 = new Appointment(testClientId, testClientStylistId, testDate1, 15);
+      testAppointment1.Save();
+      testAppointments.Add(testAppointment1);
+
+      DateTime testDate2 = new DateTime(2016, 11, 21, 14, 0, 0);
+      Appointment testAppointment2 = new Appointment(testClientId, testClientStylistId, testDate2, 30);
+      testAppointment2.Save();
+      testAppointments.Add(testAppointment2);
+
+      List<Appointment> resultAppointments = testClient.GetAppointments();
+
+      Assert.Equal(testAppointments, resultAppointments);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();

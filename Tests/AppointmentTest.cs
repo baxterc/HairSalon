@@ -94,8 +94,8 @@ namespace HairSalon
       testAppointment2.Save();
       testAppointments.Add(testAppointment2);
 
-      testAppointment1.Delete();
       testAppointments.Remove(testAppointment1);
+      testAppointment1.Delete();
       List<Appointment> resultAppointments = Appointment.GetAll();
 
       Assert.Equal(testAppointments, resultAppointments);
