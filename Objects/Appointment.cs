@@ -109,5 +109,57 @@ namespace HairSalon
       }
       return allAppointments;
     }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO appointments (client_id, stylist_id, date_and_time, duration) OUTPUT INSERTED.id VALUES (@ClientId, @StylistId, @DateAndTime, @Duration);", conn);
+
+      SqlParameter clientIdParameter = new SqlParameter();
+      clientIdParameter.ParameterName = "@ClientId";
+      clientIdParameter.Value = this.GetClientId();
+      cmd.Parameters.Add(clientIdParameter);
+
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@StylistId";
+      stylistIdParameter.Value = this.GetStylistId();
+      cmd.Parameters.Add(stylistIdParameter);
+
+      SqlParameter dateAndTimeParameter = new SqlParameter();
+      dateAndTimeParameter.ParameterName = "@DateAndTime";
+      dateAndTimeParameter.Value = this.GetDate();
+      cmd.Parameters.Add(dateAndTimeParameter);
+
+      SqlParameter durationParameter = new SqlParameter();
+      durationParameter.ParameterName = "@Duration";
+      durationParameter.Value = this.GetDuration();
+      cmd.Parameters.Add(durationParameter);
+
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM appointments;", conn);
+      cmd.ExecuteNonQuery();
+    }
   }
 }

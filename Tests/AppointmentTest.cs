@@ -7,7 +7,7 @@ using System;
 
 namespace HairSalon
 {
-  public class AppointmentTest
+  public class AppointmentTest :IDisposable
   {
     public AppointmentTest()
     {
@@ -28,6 +28,22 @@ namespace HairSalon
       Appointment firstAppointment = new Appointment(1, 2, testDate, 30);
       Appointment secondAppointment = new Appointment(1, 2, testDate, 30);
       Assert.Equal(firstAppointment, secondAppointment);
+    }
+
+    [Fact]
+    public void Test_Save_SavesAppointmentToDatabase()
+    {
+      DateTime testDate = new DateTime(2016, 7, 6, 12, 30, 0);
+      Appointment testAppointment = new Appointment(3, 1, testDate, 60);
+      testAppointment.Save();
+      List<Appointment> results = Appointment.GetAll();
+      List<Appointment> testList = new List<Appointment>{testAppointment};
+      Assert.Equal(testList, results);
+    }
+
+    public void Dispose()
+    {
+      Appointment.DeleteAll();
     }
   }
 }
