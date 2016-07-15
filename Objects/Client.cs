@@ -169,12 +169,11 @@ namespace HairSalon
       SqlCommand cmd = new SqlCommand("UPDATE clients SET name = @NewClientName, stylist_id = @NewClientStylistId OUTPUT INSERTED.name, INSERTED.stylist_id where id = @ClientId;", conn);
 
       SqlParameter newClientNameParameter = new SqlParameter();
-      SqlParameter newClientStylistIdParameter = new SqlParameter();
-
       newClientNameParameter.ParameterName = "@NewClientName";
       newClientNameParameter.Value = newName;
       cmd.Parameters.Add(newClientNameParameter);
 
+      SqlParameter newClientStylistIdParameter = new SqlParameter();
       newClientStylistIdParameter.ParameterName = "@NewClientStylistId";
       newClientStylistIdParameter.Value = newStylistId;
       cmd.Parameters.Add(newClientStylistIdParameter);

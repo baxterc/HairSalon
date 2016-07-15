@@ -58,5 +58,38 @@ namespace HairSalon
     {
       _durationMinutes = duration;
     }
+
+    public static List<Appointment> GetAll()
+    {
+      List<Appointment> allAppointments = new List<Appointment> {};
+
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM appointments;", conn);
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int appointmentId = rdr.GetInt32(0);
+        int clientId = rdr.GetInt32(1);
+        int stylistId = rdr.GetInt32(2);
+        DateTime dateAndTime = rdr.GetDateTime(3);
+        int duration = rdr.GetInt32(4);
+
+        Appointment newAppointment = new Appointment(clientId, stylistId, dateAndTime, duration, appointmentId);
+        allAppointments.Add(newAppointment);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return allAppointments;
+    }
   }
 }
