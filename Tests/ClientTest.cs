@@ -1,8 +1,8 @@
-using Xunit;
-using System.Collections.Generic;
-using System;
-using System.Data;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Data;
+using Xunit;
+using System;
 
 namespace HairSalon
 {
@@ -67,7 +67,7 @@ namespace HairSalon
       string newClientName = "Tricina";
       int newStylistId = 3;
       testClient.Update(newClientName, newStylistId);
-      
+
       string resultName = testClient.GetName();
       int resultStylistId = testClient.GetStylistId();
       Assert.Equal(newClientName, resultName);
