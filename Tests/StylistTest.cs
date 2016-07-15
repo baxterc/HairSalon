@@ -56,7 +56,7 @@ namespace HairSalon
       Stylist testStylist = new Stylist("Libby");
       testStylist.Save();
       int findId = testStylist.GetId();
-      resultStylist = Stylist.Find(findId);
+      Stylist resultStylist = Stylist.Find(findId);
       Assert.Equal (testStylist, resultStylist);
     }
 
