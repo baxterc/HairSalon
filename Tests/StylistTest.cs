@@ -76,12 +76,16 @@ namespace HairSalon
     {
       List<Stylist> testStylists = new List<Stylist>{};
 
-      Stylist testStylist = new Stylist("Nancy");
-      testStylist.Save();
-      testStylists.Add(testStylist);
+      Stylist testStylist1 = new Stylist("Nora");
+      testStylist1.Save();
+      testStylists.Add(testStylist1);
 
-      testStylist.Delete();
-      testStylists.Remove(testStylist);
+      Stylist testStylist2 = new Stylist("Jimmy");
+      testStylist2.Save();
+      testStylists.Add(testStylist2);
+
+      testStylist1.Delete();
+      testStylists.Remove(testStylist1);
       List<Stylist> resultStylists = Stylist.GetAll();
 
       Assert.Equal(testStylists, resultStylists);

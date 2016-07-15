@@ -89,12 +89,16 @@ namespace HairSalon
     {
       List<Client> testClients = new List<Client>{};
 
-      Client testClient = new Client("Borkvard", 3);
-      testClient.Save();
-      testClients.Add(testClient);
+      Client testClient1 = new Client("Borkvard", 3);
+      testClient1.Save();
+      testClients.Add(testClient1);
 
-      testClient.Delete();
-      testClients.Remove(testClient);
+      Client testClient2 = new Client("Ida", 2);
+      testClient2.Save();
+      testClients.Add(testClient2);
+
+      testClient1.Delete();
+      testClients.Remove(testClient1);
       List<Client> resultClients = Client.GetAll();
 
       Assert.Equal(testClients, resultClients);
