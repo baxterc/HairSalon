@@ -159,18 +159,34 @@ namespace HairSalon
       return foundClient;
     }
 
-    public void Update(string newName)
+    public void Update(string newName = null, int newStylistId = -1)
     {
       SqlConnection conn = DB.Connection();
       SqlDataReader rdr;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("UPDATE clients SET name = @NewClientName OUTPUT INSERTED.name where id = @ClientId;", conn);
+      if (newName == null)
+      {
+        newName = this.GetName();
+      }
+
+      if (newStylistId == -1)
+      {
+        newStylistId = this.GetId();
+      }
+
+      SqlCommand cmd = new SqlCommand("UPDATE clients SET name = @NewClientName, stylist_id = @NewClientStylistId OUTPUT INSERTED.name, INSERTED.stylist_id where id = @ClientId;", conn);
 
       SqlParameter newClientNameParameter = new SqlParameter();
+      SqlParameter newClientStylistIdParameter = new SqlParameter();
+
       newClientNameParameter.ParameterName = "@NewClientName";
       newClientNameParameter.Value = newName;
       cmd.Parameters.Add(newClientNameParameter);
+
+      newClientStylistIdParameter.ParameterName = "@NewClientStylistId";
+      newClientStylistIdParameter.Value = newStylistId;
+      cmd.Parameters.Add(newClientStylistIdParameter);
 
       SqlParameter clientIdParameter = new SqlParameter();
       clientIdParameter.ParameterName = "@ClientId";
@@ -182,6 +198,7 @@ namespace HairSalon
       while(rdr.Read())
       {
         this._name = rdr.GetString(0);
+        this._stylistId = rdr.GetInt32(1);
       }
 
       if (rdr != null)
