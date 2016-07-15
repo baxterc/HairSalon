@@ -12,7 +12,7 @@ namespace HairSalon
     private DateTime _dateAndTime;
     private int _durationMinutes;
 
-    public Appointment (int clientId, int stylistId, DateTime dateAndTime, int durationMinutes, int id)
+    public Appointment (int clientId, int stylistId, DateTime dateAndTime, int durationMinutes, int id =0)
     {
       _id = id;
       _clientId = clientId;
@@ -57,6 +57,24 @@ namespace HairSalon
     public void SetDuration(int duration)
     {
       _durationMinutes = duration;
+    }
+
+    public override bool Equals(System.Object otherAppointment)
+    {
+      if (!(otherAppointment is Appointment))
+      {
+        return false;
+      }
+      else
+      {
+        Appointment newAppointment = (Appointment) otherAppointment;
+        bool idEquality = this.GetId() == newAppointment.GetId();
+        bool clientIdEquality = this.GetClientId() == newAppointment.GetClientId();
+        bool stylistIdEquality = this.GetStylistId() == newAppointment.GetStylistId();
+        bool dateEquality = this.GetDate() == newAppointment.GetDate();
+        bool durationEquality = this.GetDuration() == newAppointment.GetDuration();
+        return (idEquality && clientIdEquality && stylistIdEquality && dateEquality && durationEquality);
+      }
     }
 
     public static List<Appointment> GetAll()
