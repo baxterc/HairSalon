@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace HairSalon
 {
-  public class StylistTest
+  public class StylistTest : IDisposable
   {
     public StylistTest()
     {
@@ -37,6 +37,11 @@ namespace HairSalon
       List<Stylist> results = Stylist.GetAll();
       List<Stylist> testList = new List<Stylist>{testStylist};
       Assert.Equal(testList, results);
+    }
+
+    public void Dispose()
+    {
+      Stylist.DeleteAll();
     }
   }
 }
