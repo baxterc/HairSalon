@@ -1,0 +1,7 @@
+<h2>Are you sure you want to remove this stylist from the system?  All of their clients will be removed too!</h2>
+<h4>@Model.GetName()</h4>
+<form action="/stylist/delete/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete</button>
+</form>
+<p><a href="/">Back home</a></p>
