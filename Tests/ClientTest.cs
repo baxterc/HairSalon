@@ -71,7 +71,7 @@ namespace HairSalon
     }
 
     [Fact]
-    public void Test_Update_UpdatesMultipleItemsInDatabase()
+    public void Test_Update_UpdatesMultipleClientPropertiesInDatabase()
     {
       Client testClient = new Client("Heather", 2);
       testClient.Save();
