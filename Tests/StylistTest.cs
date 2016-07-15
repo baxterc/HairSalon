@@ -81,10 +81,10 @@ namespace HairSalon
       testStylists.Add(testStylist);
 
       testStylist.Delete();
-      testStylists.Remove(resultStylist);
+      testStylists.Remove(testStylist);
       List<Stylist> resultStylists = Stylist.GetAll();
 
-      Assert.Equal(testStylists, resultStylists);      
+      Assert.Equal(testStylists, resultStylists);
     }
 
     public void Dispose()
