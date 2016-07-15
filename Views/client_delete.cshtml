@@ -1,0 +1,7 @@
+<h2>Are you sure you want to remove this client from the system?</h2>
+<h4>@Model.GetName()</h4>
+<form action="/client/delete/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete</button>
+</form>
+<p><a href="/">Back home</a></p>

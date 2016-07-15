@@ -1,0 +1,17 @@
+<h2>Update @Model["client"].GetName()</h2>
+<p>Enter your updates below:</p>
+
+<form action="/client/update/@Model["client"].GetId()" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <label for="client_name">Client name: </label>
+  <input type="text" name="client_name" id="client_name" required autofocus="" placeholder="Enter name...">
+
+  <select name="stylist_id">
+    @foreach (var stylist in Model["stylists"])
+    {
+      <option value ="@stylist.GetId()">@stylist.GetName()</option>
+    }
+  </select>
+
+  <button type="submit">Update this Client</button>
+</form>
