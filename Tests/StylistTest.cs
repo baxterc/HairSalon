@@ -55,9 +55,20 @@ namespace HairSalon
     {
       Stylist testStylist = new Stylist("Libby");
       testStylist.Save();
-      int findId = testStylist.GetId();
-      Stylist resultStylist = Stylist.Find(findId);
+      int foundId = testStylist.GetId();
+      Stylist resultStylist = Stylist.Find(foundId);
       Assert.Equal (testStylist, resultStylist);
+    }
+
+    [Fact]
+    public void Test_Update_UpdatesStylistInDatabase()
+    {
+      Stylist testStylist = new Stylist("Mike");
+      testStylist.Save();
+      string newStylistName = "Donna";
+      testStylist.Update(newStylistName);
+      string result = testStylist.GetName();
+      Assert.Equal(newStylistName, result);
     }
 
     public void Dispose()
