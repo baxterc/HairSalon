@@ -226,6 +226,42 @@ namespace HairSalon
         return foundClients;
     }
 
+    public List<Appointment> GetAppointments()
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM appointments WHERE stylist_id = @StylistId;", conn);
+      SqlParameter StylistIdParameter = new SqlParameter();
+      StylistIdParameter.ParameterName = "@StylistId";
+      StylistIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(StylistIdParameter);
+      rdr = cmd.ExecuteReader();
+
+      List<Appointment> foundAppointments = new List<Appointment> {};
+
+      while (rdr.Read())
+      {
+        int foundAppointmentId = rdr.GetInt32(0);
+        int foundClientId = rdr.GetInt32(1);
+        int foundStylistId = rdr.GetInt32(2);
+        DateTime foundDate = rdr.GetDateTime(3);
+        int foundDuration = rdr.GetInt32(4);
+        Appointment foundAppointment = new Appointment(foundClientId, foundStylistId, foundDate, foundDuration, foundAppointmentId);
+        foundAppointments.Add(foundAppointment);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+        return foundAppointments;
+    }
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();

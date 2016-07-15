@@ -1,0 +1,14 @@
+<h1>@Model["stylist"].GetName()</h1>
+
+<p>Clients for this stylist: </p>
+
+<ul>
+@foreach (var client in Model["clients"])
+{
+  <li><a href="/client/@client.GetId()">@client.GetName()</a></li>
+}
+</ul>
+
+<p><a href="/stylist/update/@Model["stylist"].GetId()">Update this Stylist</a></p>
+<p><a href="/stylist/delete/@Model["stylist"].GetId()">Delete this Stylist</a></p>
+<a href="/">Back to home page</a>

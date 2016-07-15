@@ -1,0 +1,20 @@
+<h1>Chuck's Hair Barn!</h1>
+
+@if (Model.Count == 0)
+{
+  <p>No appointments have been scheduled!</p>
+}
+
+<ul>
+  @foreach (var cuisine in Model)
+  {
+    <li><a href="/cuisine/@cuisine.GetId()">@cuisine.GetCuisineName()</a></li>
+  }
+</ul>
+
+<p><a href="/client/new">Add a new client</a></p>
+<p><a href="/stylist/new">Add a new stylist</a></p>
+<p><a href="/appointment/new">Set a new appointment</a></p>
+
+<p><a href="/stylist/all">View all stylists</a></p>
+<p><a href="/client/all">View all clients</a></p>
