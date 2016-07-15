@@ -1,0 +1,17 @@
+<h2>Add a Client</h2>
+
+<form action="/client/new" method="post">
+<label for="client_name">Client name: </label>
+<input type="text" name="client_name" id="client_name" required autofocus="" placeholder="Enter name...">
+
+<select name="stylist_id">
+  @foreach (var Stylist in Model)
+  {
+    <option value ="@Stylist.GetId()">@Stylist.GetName()</option>
+  }
+</select>
+
+<button type="submit" name="button">Submit</button>
+</form>
+
+<a href="/">Back to Home</a>

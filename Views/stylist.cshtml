@@ -1,7 +1,23 @@
 <h1>@Model["stylist"].GetName()</h1>
 
-<p>Clients for this stylist: </p>
+<h3>Clients for this stylist: </h3>
 
+@if (Model["clients"].Count == 0)
+{
+  <p>This stylist doesn't have any clients yet.</p>
+}
+<ul>
+@foreach (var client in Model["clients"])
+{
+  <li><a href="/client/@client.GetId()">@client.GetName()</a></li>
+}
+</ul>
+
+<h3>All appointments for this stylist: </h3>
+@if (Model["appointments"].Count == 0)
+{
+  <p>This stylist doesn't have any appointments yet.</p>
+}
 <ul>
 @foreach (var client in Model["clients"])
 {

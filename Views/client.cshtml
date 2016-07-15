@@ -1,0 +1,14 @@
+<h1>@Model["client"].GetName()</h1>
+
+<h3>Stylist: <a href="/stylist/@Model["stylist"].GetId()">@Model["stylist"].GetName()</a></h3>
+
+<h3>All appointments for this client: </h3>
+@if (Model["appointments"].Count == 0)
+{
+  <p>This client hasn't scheduled any appointments yet.</p>
+}
+<ul>
+
+<p><a href="/client/update/@Model["client"].GetId()">Update this Client</a></p>
+<p><a href="/client/delete/@Model["client"].GetId()">Delete this Client</a></p>
+<a href="/">Back to home page</a>
