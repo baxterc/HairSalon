@@ -159,21 +159,12 @@ namespace HairSalon
       return foundClient;
     }
 
-    public void Update(string newName = null, int newStylistId = -1)
+    public void Update(string newName, int newStylistId)
     {
+
       SqlConnection conn = DB.Connection();
       SqlDataReader rdr;
       conn.Open();
-
-      if (newName == null)
-      {
-        newName = this.GetName();
-      }
-
-      if (newStylistId == -1)
-      {
-        newStylistId = this.GetId();
-      }
 
       SqlCommand cmd = new SqlCommand("UPDATE clients SET name = @NewClientName, stylist_id = @NewClientStylistId OUTPUT INSERTED.name, INSERTED.stylist_id where id = @ClientId;", conn);
 

@@ -60,17 +60,6 @@ namespace HairSalon
     }
 
     [Fact]
-    public void Test_Update_UpdatesClientNameInDatabase()
-    {
-      Client testClient = new Client("Rachel", 2);
-      testClient.Save();
-      string newClientName = "Robin";
-      testClient.Update(newClientName);
-      string result = testClient.GetName();
-      Assert.Equal(newClientName, result);
-    }
-
-    [Fact]
     public void Test_Update_UpdatesMultipleClientPropertiesInDatabase()
     {
       Client testClient = new Client("Heather", 2);
@@ -78,6 +67,7 @@ namespace HairSalon
       string newClientName = "Tricina";
       int newStylistId = 3;
       testClient.Update(newClientName, newStylistId);
+      
       string resultName = testClient.GetName();
       int resultStylistId = testClient.GetStylistId();
       Assert.Equal(newClientName, resultName);
