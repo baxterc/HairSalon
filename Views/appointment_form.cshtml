@@ -2,7 +2,7 @@
 
 <form action="/appointment/new" method="post">
   <label for="appointment_date">Appointment Date: </label>
-  <input type="datetime" name="appointment_date" id="appointment_date" required>
+  <input type="datetime-local" name="appointment_date" id="appointment_date" required>
 
   <select name="client_id">
     @foreach (var Client in Model)

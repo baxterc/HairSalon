@@ -109,6 +109,20 @@ namespace HairSalon
         return View["success.cshtml", selectedClient];
       };
 
+      Get["/appointment/new"] = _ => {
+        List<Client> allClients = Client.GetAll();
+        return View ["appointment_form.cshtml", allClients];
+      };
+      Post["/appointment/new"] = _ => {
+        var appointmentClient = Client.Find(Request.Form["client_id"]);
+        var stylistId = appointmentClient.GetStylistId();
+        Appointment newAppointment = new Appointment(Request.Form["client_id"], stylistId, Request.Form["appointment_date"], Request.Form["appointment_duration"]);
+        newAppointment.Save();
+        return View["scheduled.cshtml", newAppointment];
+      };
+
+
+
 
     }
   }
