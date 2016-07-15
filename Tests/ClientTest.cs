@@ -27,5 +27,15 @@ namespace HairSalon
       Client secondClient = new Client("Joe", 1);
       Assert.Equal(firstClient, secondClient);
     }
+
+    [Fact]
+    public void Test_Save_SavesClientToDatabase()
+    {
+      Client testClient = new Client("Lana", 2);
+      testClient.Save();
+      List<Client> results = Client.GetAll();
+      List<Client> testList = new List<Client>{testClient};
+      Assert.Equal(testList, results);
+    }
   }
 }
