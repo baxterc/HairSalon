@@ -63,6 +63,22 @@ namespace HairSalon
       Assert.Equal (testAppointment, resultAppointment);
     }
 
+    [Fact]
+    public void Test_Update_UpdatesAppointmentInDatabase()
+    {
+      DateTime testDate = new DateTime(2016, 10, 20, 18, 0, 0);
+      Appointment testAppointment = new Appointment(3, 3, testDate, 45);
+      testAppointment.Save();
+      DateTime newDate = new DateTime(2016, 10, 22, 9, 0, 0);
+      int newStylistId = 7;
+      testAppointment.Update(3, newStylistId, newDate, 45);
+
+      DateTime resultDate = testAppointment.GetDate();
+      int resultStylistId = testAppointment.GetStylistId();
+      Assert.Equal(newDate, resultDate);
+      Assert.Equal(newStylistId, resultStylistId);
+    }
+
     public void Dispose()
     {
       Appointment.DeleteAll();

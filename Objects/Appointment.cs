@@ -196,6 +196,60 @@ namespace HairSalon
       return foundAppointment;
     }
 
+    public void Update(int newClientId, int newStylistId, DateTime newDate, int newDuration)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE appointments SET client_id = @NewClientId, stylist_id = @NewStylistId, date_and_time = @NewDate, duration = @NewDuration OUTPUT INSERTED.client_id, INSERTED.stylist_id, INSERTED.date_and_time, INSERTED.duration where id = @AppointmentId;", conn);
+
+      SqlParameter newClientIdParameter = new SqlParameter();
+      newClientIdParameter.ParameterName = "@NewClientId";
+      newClientIdParameter.Value = newClientId;
+      cmd.Parameters.Add(newClientIdParameter);
+
+      SqlParameter newStylistIdParameter = new SqlParameter();
+      newStylistIdParameter.ParameterName = "@NewStylistId";
+      newStylistIdParameter.Value = newStylistId;
+      cmd.Parameters.Add(newStylistIdParameter);
+
+      SqlParameter newDateParameter = new SqlParameter();
+      newDateParameter.ParameterName = "@NewDate";
+      newDateParameter.Value = newDate;
+      cmd.Parameters.Add(newDateParameter);
+
+      SqlParameter newDurationParameter = new SqlParameter();
+      newDurationParameter.ParameterName = "@NewDuration";
+      newDurationParameter.Value = newDuration;
+      cmd.Parameters.Add(newDurationParameter);
+
+      SqlParameter appointmentIdParameter = new SqlParameter();
+      appointmentIdParameter.ParameterName = "@AppointmentId";
+      appointmentIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(appointmentIdParameter);
+
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._clientId = rdr.GetInt32(0);
+        this._stylistId = rdr.GetInt32(1);
+        this._dateAndTime = rdr.GetDateTime(2);
+        this._durationMinutes = rdr.GetInt32(3);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
