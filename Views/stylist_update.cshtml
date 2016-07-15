@@ -1,0 +1,9 @@
+<h2>Update @Model.GetName()</h2>
+<p>Enter your updates below:</p>
+
+<form action="/stylist/update/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <label for="stylist_name">Stylist name: </label>
+  <input type="text" name="stylist_name" id="stylist_name" required autofocus="" placeholder="Enter name...">
+  <button type="submit">Update this Stylist</button>
+</form>
